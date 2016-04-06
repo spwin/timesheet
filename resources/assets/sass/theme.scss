@@ -1,0 +1,44 @@
+body {
+  padding-top: 70px;
+}
+
+.inline-block{
+  display: inline-block;
+}
+
+.block{
+  display: block;
+}
+
+.nav > li > span {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+.navbar-nav > li > span {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 20px;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > span {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+.table > tbody > tr > td.vert-align{
+  vertical-align: middle;
+}
+.row.cursor-pointer *{
+  cursor: pointer;
+}
+
+.mb-0px{
+  margin-bottom: 0;
+}
+.width-300px{
+  width: 300px;
+}
