@@ -2,12 +2,12 @@
 @section('body')
     @include('pages.admin.navbar')
     @include('flash::message')
-    <h2>Week</h2>
+    <h2>{{ trans('messages.week') }}</h2>
     <p>{{ date('d/m/Y', strtotime($week->begin_date)).' - '.date('d/m/Y', strtotime($week->end_date)) }}</p>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="{{ action('TimesheetController@view', $week->id) }}">By user</a></li>
-        <li role="presentation"><a href="{{ action('TimesheetController@byDays', $week->id) }}">By day</a></li>
-        <li role="presentation"><a href="{{ action('TimesheetController@onlyFixes', $week->id) }}">Only fixes</a></li>
+        <li role="presentation" class="active"><a href="{{ action('TimesheetController@view', $week->id) }}">{{ trans('messages.by-user') }}</a></li>
+        <li role="presentation"><a href="{{ action('TimesheetController@byDays', $week->id) }}">{{ trans('messages.by-day') }}</a></li>
+        <li role="presentation"><a href="{{ action('TimesheetController@onlyFixes', $week->id) }}">{{ trans('messages.only-fixes') }}</a></li>
     </ul>
     @foreach($users as $user)
         @if($user->days()->where($where)->where('status', '<>', 'none')->count() > 0)
@@ -15,11 +15,11 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Day</th>
-                    <th>Status</th>
-                    <th>Earned</th>
-                    <th>Worked</th>
+                    <th>{{ trans('messages.date') }}</th>
+                    <th>{{ trans('messages.day') }}</th>
+                    <th>{{ trans('messages.status') }}</th>
+                    <th>{{ trans('messages.earned') }}</th>
+                    <th>{{ trans('messages.worked') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,16 +35,16 @@
                         <td class="vert-align"><strong>{{ date('l', strtotime($day->date)) }}</strong></td>
                         <td class="vert-align">
                             {!! $day->status == 'none' ?
-                                '<span class="label label-warning">Not submitted</span>' :
-                                ($day->approved ? '<span class="label label-success">Approved</span>' :
-                                ($day->cancelled ? '<span class="label label-danger">Cancelled</span>' :
-                                '<span class="label label-info">Waiting to be approved</span>')) !!}
+                                '<span class="label label-warning">'.trans('messages.status-not-submitted').'</span>' :
+                                ($day->approved ? '<span class="label label-success">'.trans('messages.status-approved').'</span>' :
+                                ($day->cancelled ? '<span class="label label-danger">'.trans('messages.status-cancelled').'</span>' :
+                                '<span class="label label-info">'.trans('messages.status-waiting-approval').'</span>')) !!}
                         </td>
                         <td class="vert-align">
                             <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
                         </td>
                         <td class="vert-align">
-                            {!! $day->status == 'day' ? '<i class="fa fa-sun-o text-warning"></i> Day shift' : '<i class="fa fa-moon-o text-primary"></i> Night shift' !!}
+                            {!! $day->status == 'day' ? '<i class="fa fa-sun-o text-warning"></i> '.trans('messages.day-shift') : '<i class="fa fa-moon-o text-primary"></i> '.trans('messages.night-shift') !!}
                         </td>
                         {!! Form::hidden('id', $day->id) !!}
                         {!! Form::close() !!}
@@ -52,14 +52,14 @@
                 @endforeach
                 @foreach($user->fixes()->where(['week_id' => $week->id])->get() as $fix)
                     <tr>
-                        <td class="vert-align">FIX</td>
-                        <td class="vert-align text-left width-300px" colspan="2"><strong>Comment: </strong>{{ $fix->comment }}</td>
+                        <td class="vert-align">{{ trans('messages.table-fix') }}</td>
+                        <td class="vert-align text-left width-300px" colspan="2"><strong>{{ trans('messages.comment') }} </strong>{{ $fix->comment }}</td>
                         <td class="vert-align" colspan="2"><strong>£ {{ $fix->sum + 0 }}</strong></td>
                     </tr>
                     <?php $total += $fix->sum; ?>
                 @endforeach
                     <tr>
-                        <td class="vert-align text-right" colspan="3">TOTAL: </td>
+                        <td class="vert-align text-right" colspan="3">{{ trans('messages.total') }} </td>
                         <td class="vert-align" colspan="2"><strong>£ {{ $total }}</strong></td>
                     </tr>
                 </tbody>

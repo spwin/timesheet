@@ -55,7 +55,7 @@ class UsersController extends Controller
             $m->from('spwinwk@gmail.com', 'Test');
             $m->to($user->email, $user->name.' '.$user->surname)->subject('Your timesheeet login details!');
         });
-        Flash::success('New user successfully added!');
+        Flash::success(trans('messages.user-added'));
         return Redirect::action('UsersController@index');
     }
 
@@ -82,14 +82,14 @@ class UsersController extends Controller
         }
         $user->fill($input)->save();
 
-        Flash::success('User successfully updated!');
+        Flash::success(trans('messages.user-updated'));
 
         return Redirect::action('UsersController@index');
     }
 
     public function destroy($id){
         $user = User::findOrFail($id);
-        Flash::error('User deleted!');
+        Flash::error(trans('messages.user-deleted'));
         $user->delete();
 
         return Redirect::action('UsersController@index');

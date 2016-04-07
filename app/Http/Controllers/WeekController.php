@@ -17,7 +17,7 @@ class WeekController extends Controller
         DB::table('week')
             ->where('id', $id)
             ->update(array('approved' => 1));
-        Flash::success('Payroll period successfully marked as paid');
+        Flash::success(trans('messages.payroll-paid'));
         return Redirect::back();
     }
 }

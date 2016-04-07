@@ -2,16 +2,16 @@
 @section('body')
     @include('pages.'.Auth::user()->role.'.navbar')
     @include('flash::message')
-    <a href="{{ action('UsersController@create') }}" type="button" class="btn btn-success mb-20px">Add user</a>
+    <a href="{{ action('UsersController@create') }}" type="button" class="btn btn-success mb-20px">{{ trans('messages.button-add-user') }}</a>
     @if(count($users) > 0)
     <table class="table">
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>E-mail</th>
-            <th>Phone</th>
-            <th>Actions</th>
+            <th>{{ trans('messages.table-name') }}</th>
+            <th>{{ trans('messages.table-email') }}</th>
+            <th>{{ trans('messages.table-phone') }}</th>
+            <th>{{ trans('messages.table-actions') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -22,14 +22,14 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->phone }}</td>
                 <td>
-                    <a href="{{ action('UsersController@edit', $user->id) }}" class="btn btn-xs btn-success">Edit</a>
+                    <a href="{{ action('UsersController@edit', $user->id) }}" class="btn btn-xs btn-success">{{ trans('messages.button-edit') }}</a>
                     {!! Form::open([
                     'method' => 'DELETE',
                     'action' => ['UsersController@destroy', $user->id],
                     'class' => 'inline-block',
-                    'onclick'=>'return confirm("Are you sure?")'
+                    'onclick'=>'return confirm("'.trans('messages.are-you-sure').'")'
                     ]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                    {!! Form::submit( trans('messages.button-delete'), ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}
                 </td>
             </tr>

@@ -38,7 +38,7 @@ class FixesController extends Controller
         $fix = new Fixes();
         $fix->fill($input);
         $fix->save();
-        Flash::success('Fix has been successfully added!');
+        Flash::success(trans('messages.fix-added'));
         return Redirect::action('FixesController@weekly', $week->id);
     }
 
@@ -77,7 +77,7 @@ class FixesController extends Controller
         $fix = Fixes::findOrFail($id);
         $fix->fill($input);
         $fix->save();
-        Flash::success('Fix is successfully updated!');
+        Flash::success(trans('messages.fix-updated'));
         return Redirect::action('FixesController@weekly', $fix->week_id);
     }
 }

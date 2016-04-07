@@ -7,19 +7,23 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ action('DefaultController@index') }}">Constructions</a>
+            <a class="navbar-brand" href="{{ action('DefaultController@index') }}">{{ trans('messages.page') }}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li {{ (Request::is('*admin/timesheet*') ? 'class=active' : '') }}><a href="{{ action('TimesheetController@admin') }}">Payroll</a></li>
-                <li {{ (Request::is('*managers*') ? 'class=active' : '') }}><a href="{{ action('ManagerController@index') }}">Managers</a></li>
-                <li {{ (Request::is('*users*') ? 'class=active' : '') }}><a href="{{ action('UsersController@index') }}">Users</a></li>
-                <li {{ (Request::is('*settings*') ? 'class=active' : '') }}><a href="{{ action('SettingsController@index') }}">Settings</a></li>
+                <li {{ (Request::is('*admin/timesheet*') ? 'class=active' : '') }}><a href="{{ action('TimesheetController@admin') }}">{{ trans('messages.payroll') }}</a></li>
+                <li {{ (Request::is('*managers*') ? 'class=active' : '') }}><a href="{{ action('ManagerController@index') }}">{{ trans('messages.managers') }}</a></li>
+                <li {{ (Request::is('*users*') ? 'class=active' : '') }}><a href="{{ action('UsersController@index') }}">{{ trans('messages.users') }}</a></li>
+                <li {{ (Request::is('*settings*') ? 'class=active' : '') }}><a href="{{ action('SettingsController@index') }}">{{ trans('messages.settings') }}</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="lang-flag"><a href="{{ action('DefaultController@language', ['lang' => 'lt']) }}"><img src="{{ URL::to('/') }}/css/images/LITH0001.GIF"></a></li>
+                <li class="lang-flag"><a href="{{ action('DefaultController@language', ['lang' => 'en']) }}"><img src="{{ URL::to('/') }}/css/images/UNKG0001.GIF"></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><span><strong>{{ Auth::user()->name }} {{ Auth::user()->surname }}</strong></span></li>
-                <li {{ (Request::is('*profile*') ? 'class=active' : '') }}><a href="{{ action('UserController@index') }}">Profile</a></li>
-                <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
+                <li {{ (Request::is('*profile*') ? 'class=active' : '') }}><a href="{{ action('UserController@index') }}">{{ trans('messages.profile') }}</a></li>
+                <li><a href="{{ action('Auth\AuthController@getLogout') }}">{{ trans('messages.logout') }}</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

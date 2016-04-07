@@ -17,45 +17,45 @@
         ]) !!}
     <fieldset>
         <!-- Form Name -->
-        <legend>Create user</legend>
+        <legend>{{ trans('messages.create-user') }}</legend>
 
         <div class="form-group">
-            {!! Form::label('name', 'Name:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('name', trans('messages.field-name'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::text('name', null, ['class' => 'form-control input-md', 'placeholder' => 'John', 'required' => 'required']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('surname', 'Surname:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('surname', trans('messages.field-surname'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::text('surname', null, ['class' => 'form-control input-md', 'placeholder' => 'Smith', 'required' => 'required']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('email', 'E-mail:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('email', trans('messages.field-email'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::input('email', 'email', null, ['class' => 'form-control input-md', 'placeholder' => 'john.smith@gmail.com', 'required' => 'required']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('phone', 'Phone:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('phone', trans('messages.field-phone'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::text('phone', null, ['class' => 'form-control input-md', 'placeholder' => '077985622132']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('password', 'Password:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('password', trans('messages.field-password'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::input('password', 'password', null, ['class' => 'form-control input-md', 'required' => 'required']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('password_confirmation', 'Repeat password:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('password_confirmation', trans('messages.field-repeat-pass'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::input('password', 'password_confirmation', null, ['class' => 'form-control input-md']) !!}
             </div>
@@ -65,7 +65,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>
             <div class="col-md-4">
-                {!! Form::submit('Create manager', ['class' => 'btn btn-success']) !!}
+                {!! Form::submit(trans('messages.button-create-user'), ['class' => 'btn btn-success']) !!}
             </div>
         </div>
 

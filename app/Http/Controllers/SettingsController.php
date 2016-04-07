@@ -24,7 +24,7 @@ class SettingsController extends Controller
         $input = $request->all();
 
         $setting->fill($input)->save();
-        Flash::success('Settings successfully updated!');
+        Flash::success(trans('messages.settings-updated'));
 
         return Redirect::action('SettingsController@index');
     }

@@ -16,26 +16,26 @@
                ]) !!}
     <fieldset>
         <!-- Form Name -->
-        <legend>Edit fix</legend>
+        <legend>{{ trans('messages.edit-fix') }}</legend>
 
         {!! Form::hidden('week_id', $fix->week_id) !!}
 
         <div class="form-group">
-            {!! Form::label('user_id', 'User:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('user_id', trans('messages.form-user'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::select('user_id', $users, null, ['class' => 'form-control input-md', 'required' => 'required']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('sum', 'Sum (£):', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('sum', trans('messages.form-sum'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::input('number', 'sum', null, ['class' => 'form-control input-md', 'required' => 'required']) !!}
             </div>
         </div>
 
         <div class="form-group">
-            {!! Form::label('comment', 'Comment:', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('comment', trans('messages.form-comment'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::textarea('comment', null, ['class' => 'form-control input-md', 'required' => 'required']) !!}
             </div>
@@ -45,7 +45,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>
             <div class="col-md-4">
-                {!! Form::submit('Add this fix', ['class' => 'btn btn-success']) !!}
+                {!! Form::submit(trans('messages.save-this-fix'), ['class' => 'btn btn-success']) !!}
             </div>
         </div>
 

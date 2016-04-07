@@ -31,7 +31,7 @@ class DayController extends Controller
                 'date_submitted' => date('Y-m-d H:i:s', time()),
                 'status' => $input['type']
             ));
-        Flash::success('Your time has been submitted!');
+        Flash::success(trans('messages.time-submitted'));
         return Redirect::back();
     }
 
@@ -54,7 +54,7 @@ class DayController extends Controller
                 'cancelled' => 0,
                 'status' => $input['type']
             ));
-        Flash::success('Record has been approved!');
+        Flash::success(trans('messages.record-approved'));
         return Redirect::back();
     }
 
@@ -67,7 +67,7 @@ class DayController extends Controller
                 'date_cancelled' => date('Y-m-d H:i:s', time())
             ));
 
-        Flash::error('Record cancelled!');
+        Flash::error(trans('messages.record-cancelled'));
         return Redirect::back();
     }
 }

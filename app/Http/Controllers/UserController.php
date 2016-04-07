@@ -37,7 +37,7 @@ class UserController extends Controller
             $input['password'] = bcrypt($request->input('new_password'));
         }
         $user->fill($input)->save();
-        Flash::success('Your information successfully updated!');
+        Flash::success(trans('messages.information-updated'));
 
         return Redirect::action('UserController@index');
     }

@@ -35,7 +35,7 @@ class ManagerController extends Controller
         }
         $input['role'] = 'manager';
         User::create($input);
-        Flash::success('New manager successfully added!');
+        Flash::success(trans('messages.manager-added'));
         return Redirect::action('ManagerController@index');
     }
 
@@ -62,14 +62,14 @@ class ManagerController extends Controller
         }
         $user->fill($input)->save();
 
-        Flash::success('Manager successfully updated!');
+        Flash::success(trans('messages.manager-updated'));
 
         return Redirect::action('ManagerController@index');
     }
 
     public function destroy($id){
         $user = User::findOrFail($id);
-        Flash::error('Manager deleted!');
+        Flash::error(trans('messages.manager-deleted'));
         $user->delete();
 
         return Redirect::action('ManagerController@index');

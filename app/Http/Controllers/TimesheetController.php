@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
@@ -60,6 +61,7 @@ class TimesheetController extends Controller
         $weeks = Week::with('days')->orderBy('begin_date', 'DESC')->get();
         $day_fare = Settings::select('value')->where(['name' => 'day_fare'])->first();
         $night_fare = Settings::select('value')->where(['name' => 'night_fare'])->first();
+
         return view('pages.admin.timesheet.timesheet')->with([
             'day_fare' => $day_fare->value,
             'night_fare' => $night_fare->value,
@@ -131,7 +133,7 @@ class TimesheetController extends Controller
 
     public function requestsUsers(){
         $pending = Day::where(['day.approved' => 0, 'day.cancelled' => 0, 'day.submitted' => 1])->where('day.status', '<>', 'none')->leftJoin('week', 'week.id', '=', 'day.week_id')->where(['week.approved' => 0, 'week.current' => 0])->count();
-        $users = User::where(['role' => 'user'])->get();
+        $users = User::where(['role' => 'user'])->orderBy('surname', 'ASC')->get();
         $day_fare = Settings::select('value')->where(['name' => 'day_fare'])->first();
         $night_fare = Settings::select('value')->where(['name' => 'night_fare'])->first();
         return view('pages.manager.timesheet.users')->with([
@@ -143,7 +145,7 @@ class TimesheetController extends Controller
     }
 
     public function requestsDays(){
-        $days_unique = Day::with('user')->where(['day.submitted' => 1, 'day.cancelled' => 0, 'day.approved' => 0])->where('day.status', '<>', 'none')->leftJoin('week', 'week.id', '=', 'day.week_id')->where(['week.approved' => 0, 'week.current' => 0])->orderBy('date', 'DESC')->groupBy('date')->get();
+        $days_unique = Day::with('user')->where(['day.submitted' => 1, 'day.cancelled' => 0, 'day.approved' => 0])->where('day.status', '<>', 'none')->leftJoin('week', 'week.id', '=', 'day.week_id')->where(['week.approved' => 0, 'week.current' => 0])->orderBy('date', 'ASC')->groupBy('date')->get();
         $days = [];
         $counter = 0;
         foreach($days_unique as $du){

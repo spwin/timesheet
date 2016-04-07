@@ -27,9 +27,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/admin/timesheet/{id}/approve', 'WeekController@approve');
             Route::get('/admin/timesheet/{id}/only-fixes', 'TimesheetController@onlyFixes');
         });
-        Route::group(['middleware' => ['role:advanced']], function()
-        {
-            Route::resource('/users', 'UsersController');
+        Route::group(['middleware' => ['role:manager']], function(){
             Route::get('/manager/timesheet/requests/{id}/user', 'TimesheetController@requestsUser');
             Route::get('/manager/timesheet/requests/users', 'TimesheetController@requestsUsers');
             Route::get('/manager/timesheet/requests/by-date', 'TimesheetController@requestsDays');
@@ -44,11 +42,17 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/manager/fixes/{week_id}/weekly', 'FixesController@weekly');
             Route::get('/manager/fixes/{user_id}/user', 'FixesController@managerUsers');
         });
+        Route::group(['middleware' => ['role:advanced']], function()
+        {
+            Route::resource('/users', 'UsersController');
+        });
         Route::get('/user/timesheet', 'TimesheetController@users');
         Route::post('/user/timesheet/day/{id}/update', 'DayController@update');
 
         Route::get('/test', 'DefaultController@test');
     });
+
+    Route::get('language/{lang}', 'DefaultController@language');
 
     Route::get('login', 'Auth\AuthController@getLogin');
     Route::post('login', 'Auth\AuthController@postLogin');

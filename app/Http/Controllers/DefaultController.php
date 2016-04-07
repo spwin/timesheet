@@ -11,6 +11,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
@@ -24,6 +25,11 @@ class DefaultController extends Controller
             }
         }
         return view('layout');
+    }
+
+    public function language($lang){
+        Session::set('language', $lang);
+        return Redirect::back();
     }
 
     function getRandom($what){
