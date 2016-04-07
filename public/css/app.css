@@ -5825,6 +5825,9 @@ body {
 .lang-flag img {
   width: 20px; }
 
+.cursor-pointer label {
+  font-weight: normal; }
+
 .mb-20px {
   margin-bottom: 20px; }
 

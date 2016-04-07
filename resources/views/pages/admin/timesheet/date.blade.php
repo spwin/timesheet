@@ -12,7 +12,7 @@
     @foreach($days as $single)
         <?php $total = 0; ?>
         <?php $users = 0; ?>
-        <h2>{{ date('l', strtotime($single['current']->date)) }} ({{ date('d/m/Y', strtotime($single['current']->date)) }})</h2>
+        <h2>{{ trans('messages.days.'.date('l', strtotime($single['current']->date))) }} ({{ date('d/m/Y', strtotime($single['current']->date)) }})</h2>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -24,7 +24,7 @@
             </tr>
             </thead>
         @foreach($single['days'] as $day)
-            <?php $total += $day->cancelled == 0 ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
+            <?php $total += $day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
             <tbody>
             {!! Form::open([
                             'method' => '',
@@ -44,7 +44,7 @@
                     {!! $day->status == 'day' ? '<i class="fa fa-sun-o text-warning"></i> '.trans('messages.day-shift') : '<i class="fa fa-moon-o text-primary"></i> '.trans('messages.night-shift') !!}
                 </td>
                 <td class="vert-align">
-                    <strong>£ {{ $day->cancelled == 0 ? ($day->status == 'day' ? $day_fare : $night_fare) : 0 }}</strong>
+                    <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                 </td>
                 {!! Form::hidden('id', $day->id) !!}
                 {!! Form::close() !!}

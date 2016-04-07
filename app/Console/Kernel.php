@@ -15,7 +15,10 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\Inspire::class,
         Commands\DaysCommand::class,
-        Commands\WeeksCommand::class
+        Commands\WeeksCommand::class,
+        Commands\UsersCommand::class,
+        Commands\ManagersCommand::class,
+        Commands\AdminCommand::class
     ];
 
     /**
@@ -30,5 +33,11 @@ class Kernel extends ConsoleKernel
             ->weekly()->mondays()->at('00:01');
         $schedule->command('command:days')
             ->dailyAt('00:02');
+        $schedule->command('command:users')
+            ->weekly()->sundays()->at('19:00');
+        $schedule->command('command:managers')
+            ->weekly()->tuesdays()->at('10:00');
+        $schedule->command('command:admin')
+            ->weekly()->wednesdays()->at('10:00');
     }
 }

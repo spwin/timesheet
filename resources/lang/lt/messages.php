@@ -5,20 +5,20 @@ return [
     /* ***********************
     * Navigation
     *********************** */
-    'page' => 'Working.today',
-    'timesheet' => 'Grafikas',
+    'page' => 'WORKING',
+    'timesheet' => 'Darbo grafikas',
     'users' => 'Vartotojai',
     'profile' => 'Paskyra',
     'logout' => 'Atsijungti',
 
     // Admin
-    'payroll' => 'Payroll',
-    'managers' => 'Menedžeriai',
+    'payroll' => 'Periodai',
+    'managers' => 'Vadovai',
     'settings' => 'Nustatymai',
 
     // Manager
     'urgent-requests' => 'Laukia patvirtinimo',
-    'check-by-date' => 'Pagal dieną',
+    'check-by-date' => 'Pagal datą',
     'fixes' => 'Pataisymai',
 
     // User
@@ -43,14 +43,14 @@ return [
     // Payroll
     'table-starts' => 'PRADŽIA',
     'table-ends' => 'PABAIGA',
-    'table-salaries' => 'MOKĖTI',
+    'table-salaries' => 'MOKĖJIMAS',
     'table-fixes' => 'PATAISYMAI',
     'table-total' => 'VISO',
-    'table-show' => 'ŽIŪRETI',
+    'table-show' => 'PERIODO IŠMOKĖJIMAI',
     'table-status' => 'BŪSENA',
 
     'status-current' => 'EINAMASIS',
-    'status-approved' => 'PATVIRTINTAS',
+    'status-approved' => 'PATVIRTINTA',
     'pending-requests' => 'nepatvirtintų užklausų',
 
     'button-approve' => 'Patvirtinti',
@@ -64,8 +64,8 @@ return [
     'date' => 'DATA',
     'day' => 'DIENA',
     'status' => 'BŪSENA',
-    'earned' => 'UŽDIRBO',
-    'worked' => 'DIRBO',
+    'earned' => 'MOKĖJIMAS',
+    'worked' => 'PAMAINA',
 
     'status-not-submitted' => 'NEPATEIKTA',
     'status-cancelled' => 'ATMESTA',
@@ -80,14 +80,14 @@ return [
     'total' => 'VISO:',
 
     'table-user' => 'VARTOTOJAS',
-    'table-worked' => 'DIRBO',
-    'table-earned' => 'UŽDIRBO',
+    'table-worked' => 'PAMAINA',
+    'table-earned' => 'MOKĖJIMAS',
     'table-sum' => 'SUMA',
     'table-comment' => 'KOMENTARAS',
 
     // Managers
 
-    'button-add-manager' => 'Pridėti menedžerį',
+    'button-add-manager' => 'Pridėti vadovą',
     'table-name' => 'VARDAS',
     'table-email' => 'EL. PAŠTAS',
     'table-phone' => 'TELEFONAS',
@@ -95,7 +95,8 @@ return [
     'button-edit' => 'Keisti',
     'are-you-sure' => 'Ar tikrai norite atlikti šį veiksmą?',
     'button-delete' => 'Pašalinti',
-    'edit-manager' => 'Keisti menedžerio informaciją',
+    'button-reject' => 'Atmesti',
+    'edit-manager' => 'Keisti vadovo informaciją',
 
     'field-name' => 'Vardas:',
     'field-surname' => 'Pavardė:',
@@ -106,7 +107,7 @@ return [
 
     'button-update-manager' => 'Išsaugoti',
 
-    'create-manager' => 'Pridėti menedžerį',
+    'create-manager' => 'Pridėti vadovą',
     'field-password' => 'Slaptažodis:',
     'button-create-manager' => 'Išsaugoti',
 
@@ -114,7 +115,7 @@ return [
     // Users
 
     'button-add-user' => 'Pridėti vartotoją',
-    'edit-user' => 'Keisti vartotojo nustatymus',
+    'edit-user' => 'Keisti vartotojo informaciją',
     'button-update-user' => 'Išsaugoti',
     'create-user' => 'Naujas vartotojas',
     'button-create-user' => 'Išsaugoti',
@@ -139,7 +140,7 @@ return [
 
     // Urgent requests
 
-    'near-user-fixes' => 'pataisymų',
+    'near-user-fixes' => 'pataisymai',
     'table-date' => 'DATA',
     'table-day' => 'DIENA',
     'no-urgent-requests' => 'Nėra pavėluotų patvirtinimų',
@@ -154,21 +155,22 @@ return [
 
     // Fixes
 
-    'select-week-for-fixes' => 'Pasirinkite savaitę',
+    'select-week-for-fixes' => 'Pataisymai pagal periodą',
     'table-begins' => 'PRADŽIA',
-    'add-fix-for-week' => 'Pridėti pataisymą šiai savaitei',
-    'show-fixes' => 'Rodyti pataisymus',
+    'add-fix-for-week' => 'Pridėti naują',
+    'show-fixes' => 'Rodyti esamus',
     'fixes-list-for-week' => 'Savaitės pataisymai',
-    'all-weeks' => 'Visos savaitės',
-    'add-fix-week' => 'Pridėti pataisymą savaitei',
+    'all-weeks' => 'Rodyti visus periodus',
+    'add-fix-week' => 'Pridėti pataisymą periodui',
     'form-user' => 'Vartotojas:',
     'form-sum' => 'Suma (£):',
     'form-comment' => 'Komentaras:',
-    'add-this-fix' => 'Išsaugoti pataisymą',
-    'edit-fix' => 'Keisti pataisymą',
-    'save-this-fix' => 'Išsaugoti pataisymą',
+    'add-this-fix' => 'Išsaugoti',
+    'edit-fix' => 'Keisti pataisymo detales',
+    'save-this-fix' => 'Išsaugoti pakeitimus',
     'fixes-list-for-user' => 'Pataisymai vartotojo',
     'show-all-fixes' => 'Rodyti visus pataisymus',
+    'period' => 'Periodas',
 
     // Users
 
@@ -181,7 +183,7 @@ return [
 
     // Timesheet
 
-    'button-resubmit' => 'Pateikti',
+    'button-resubmit' => 'Pakeisti',
     'button-submit' => 'Pateikti',
 
 
@@ -202,9 +204,9 @@ return [
 
     // ManagerController
 
-    'manager-added' => 'Naujas menedžeris sėkmingai pridėtas!',
-    'manager-updated' => 'Menedžerio informacija išsaugota!',
-    'manager-deleted' => 'Menedžeris sėkmingai pašalintas!',
+    'manager-added' => 'Naujas vadovas sėkmingai pridėtas!',
+    'manager-updated' => 'Vadovo informacija išsaugota!',
+    'manager-deleted' => 'Vadovas sėkmingai pašalintas!',
 
     // SettingsController
 
@@ -233,4 +235,15 @@ return [
     'days.Wednesday' => 'Trečiadienis',
     'days.Tuesday' => 'Antradienis',
     'days.Monday' => 'Pirmadienis',
+
+    'search-user' => 'Ieškoti vartotojo',
+
+    // Password reset
+
+    'reset-password' => 'Slaptažodžio atkurimas',
+    'form-confirm-pass' => 'Patvirtinti slpatažodį',
+    'button-send-pass-reset' => 'Atkurti slaptažodį',
+
+    'table-language' => 'KALBA',
+    'form-lang' => 'Kalba'
 ];

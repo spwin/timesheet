@@ -9,6 +9,18 @@
         <li role="presentation"><a href="{{ action('TimesheetController@byDays', $week->id) }}">{{ trans('messages.by-day') }}</a></li>
         <li role="presentation"><a href="{{ action('TimesheetController@onlyFixes', $week->id) }}">{{ trans('messages.only-fixes') }}</a></li>
     </ul>
+    <div class="width-300px">
+        {!! Form::open([
+            'action' => ['TimesheetController@view', $week->id],
+            'method' => 'GET',
+            'role' => 'search'
+            ]) !!}
+        <div class="form-group input-group">
+            {!!Form::input('search', 'search_user', $search_user ? $search_user : '', ['id' =>  'search_user', 'placeholder' =>  trans('messages.search-user'), 'class' => 'form-control']) !!}
+            <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+        </div>
+        {!! Form::close() !!}
+    </div>
     @foreach($users as $user)
         @if($user->days()->where($where)->where('status', '<>', 'none')->count() > 0)
             <h2>{{ $user->surname.' '.$user->name }}</h2>
@@ -25,14 +37,14 @@
                 <tbody>
                 <?php $total = 0; ?>
                 @foreach($user->days()->select(['day.status as status', 'day.id as id', 'day.date as date', 'day.approved as approved', 'day.cancelled as cancelled'])->where($where)->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->orderBy('date', 'DESC')->get() as $day)
-                    <?php $total += ($day->status == 'day' ? $day_fare : $night_fare) ?>
+                    <?php $total += ($day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0) ?>
                     <tr>
                         {!! Form::open([
                         'method' => '',
                         'action' => ['DayController@approve', $day->id]
                         ]) !!}
                         <td class="vert-align">{{ date('d/m/Y', strtotime($day->date)) }}</td>
-                        <td class="vert-align"><strong>{{ date('l', strtotime($day->date)) }}</strong></td>
+                        <td class="vert-align"><strong>{{ trans('messages.days.'.date('l', strtotime($day->date))) }}</strong></td>
                         <td class="vert-align">
                             {!! $day->status == 'none' ?
                                 '<span class="label label-warning">'.trans('messages.status-not-submitted').'</span>' :
@@ -41,7 +53,7 @@
                                 '<span class="label label-info">'.trans('messages.status-waiting-approval').'</span>')) !!}
                         </td>
                         <td class="vert-align">
-                            <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                            <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                         </td>
                         <td class="vert-align">
                             {!! $day->status == 'day' ? '<i class="fa fa-sun-o text-warning"></i> '.trans('messages.day-shift') : '<i class="fa fa-moon-o text-primary"></i> '.trans('messages.night-shift') !!}

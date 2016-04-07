@@ -36,7 +36,7 @@
                                 '<span class="label label-info">Waiting to be approved</span>')) !!}
                         </td>
                         <td class="vert-align">
-                            <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                            <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                         </td>
                         <td class="vert-align">
                             @if($day->approved || $day->cancelled)

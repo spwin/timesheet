@@ -12,7 +12,7 @@
                 <th>{{ trans('messages.table-salaries') }}</th>
                 <th>{{ trans('messages.table-fixes') }}</th>
                 <th>{{ trans('messages.table-total') }}</th>
-                <th>{{ trans('messages.table-show') }}</th>
+                <th></th>
                 <th>{{ trans('messages.table-status') }}</th>
             </tr>
             </thead>

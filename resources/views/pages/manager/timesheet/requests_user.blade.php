@@ -24,7 +24,7 @@
                     <tbody>
                     <?php $total = 0; ?>
                     @foreach($user->days()->select(['day.status as status', 'day.id as id', 'day.date as date', 'day.approved as approved', 'day.cancelled as cancelled'])->where(['submitted' => 1, 'cancelled' => 0, 'day.approved' => 0])->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->where(['week.approved' => 0, 'week.current' => 0])->orderBy('date', 'DESC')->get() as $day)
-                        <?php $total += ($day->status == 'day' ? $day_fare : $night_fare) ?>
+                        <?php $total += $day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
                         <tr>
                             {!! Form::open([
                             'method' => '',
@@ -40,7 +40,7 @@
                                     '<span class="label label-info">'.trans('messages.status-waiting-approval').'</span>')) !!}
                             </td>
                             <td class="vert-align">
-                                <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                                <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                             </td>
                             <td class="vert-align">
                                 @if($day->approved || $day->cancelled)

@@ -8,6 +8,7 @@ use App\Week;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
@@ -51,9 +52,9 @@ class UsersController extends Controller
             'updated_at' => date('Y-m-d H:i:s', time()),
         ];
         Day::create($day);
-        Mail::send('auth.emails.user_create', ['user' => $user, 'pass' => $request->input('password'), 'url' => URL::to('/')], function ($m) use ($user) {
-            $m->from('spwinwk@gmail.com', 'Test');
-            $m->to($user->email, $user->name.' '.$user->surname)->subject('Your timesheeet login details!');
+        Mail::send('auth.emails.'.$user->language.'.user_create', ['user' => $user, 'pass' => $request->input('password'), 'url' => URL::to('/')], function ($m) use ($user) {
+            $m->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
+            $m->to($user->email, $user->name.' '.$user->surname)->subject(trans('emails.timesheet-login-details', [], [], $user->language));
         });
         Flash::success(trans('messages.user-added'));
         return Redirect::action('UsersController@index');

@@ -13,7 +13,7 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>#</th>
+            <th>#ID</th>
             <th>{{ trans('messages.table-user') }}</th>
             <th>{{ trans('messages.table-sum') }}</th>
             <th>{{ trans('messages.table-comment') }}</th>

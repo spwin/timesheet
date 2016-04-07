@@ -28,7 +28,7 @@
             <tbody>
             <?php $total = 0; ?>
             @foreach($user->days()->select(['day.status as status', 'day.id as id', 'day.date as date', 'day.approved as approved', 'day.cancelled as cancelled'])->where(['submitted' => 1])->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->where(['week.approved' => 0])->orderBy('date', 'DESC')->get() as $day)
-                <?php $total += ($day->status == 'day' ? $day_fare : $night_fare) ?>
+                <?php $total += $day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
                 <tr>
                     {!! Form::open([
                     'method' => '',
@@ -44,7 +44,7 @@
                             '<span class="label label-info">'.trans('messages.status-waiting-approval').'</span>')) !!}
                     </td>
                     <td class="vert-align">
-                        <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                        <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                     </td>
                     <td class="vert-align">
                         @if($day->approved || $day->cancelled)
@@ -76,7 +76,7 @@
                             'action' => ['DayController@destroy', $day->id],
                             'onclick'=>'return confirm("'.trans('messages.are-you-sure').'")'
                             ]) !!}
-                            {!! Form::submit(trans('messages.button-delete'), ['class' => 'btn btn-danger btn-medium']) !!}
+                            {!! Form::submit(trans('messages.button-reject'), ['class' => 'btn btn-danger btn-medium']) !!}
                             {!! Form::close() !!}
                         </td>
                     @endif

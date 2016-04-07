@@ -6,6 +6,18 @@
         <li role="presentation" class="active"><a href="{{ action('TimesheetController@managersUsers') }}">{{ trans('messages.by-user') }}</a></li>
         <li role="presentation"><a href="{{ action('TimesheetController@managersDays') }}">{{ trans('messages.by-day') }}</a></li>
     </ul>
+    <div class="width-300px">
+        {!! Form::open([
+            'action' => ['TimesheetController@managersUsers'],
+            'method' => 'GET',
+            'role' => 'search'
+            ]) !!}
+        <div class="form-group input-group">
+            {!!Form::text('search_user', $search_user ? $search_user : '', ['id' =>  'search_user', 'placeholder' =>  trans('messages.search-user'), 'class' => 'form-control']) !!}
+            <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+        </div>
+        {!! Form::close() !!}
+    </div>
     @foreach($users as $user)
         @if($user->days()->where(['submitted' => 1])->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->where(['week.approved' => 0])->count() > 0)
             <h2>
@@ -28,7 +40,7 @@
                 <tbody>
                 <?php $total = 0; ?>
                 @foreach($user->days()->select(['day.status as status', 'day.id as id', 'day.date as date', 'day.approved as approved', 'day.cancelled as cancelled'])->where(['submitted' => 1])->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->where(['week.approved' => 0])->orderBy('date', 'DESC')->get() as $day)
-                    <?php $total += ($day->status == 'day' ? $day_fare : $night_fare) ?>
+                    <?php $total += $day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
                     <tr>
                         {!! Form::open([
                         'method' => '',
@@ -44,7 +56,7 @@
                                 '<span class="label label-info">'.trans('messages.status-waiting-approval').'</span>')) !!}
                         </td>
                         <td class="vert-align">
-                            <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                            <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                         </td>
                         <td class="vert-align">
                             @if($day->approved || $day->cancelled)
@@ -76,14 +88,14 @@
                                 'action' => ['DayController@destroy', $day->id],
                                 'onclick'=>'return confirm("'.trans('messages.are-you-sure').'")'
                                 ]) !!}
-                                {!! Form::submit(trans('messages.button-delete'), ['class' => 'btn btn-danger btn-medium']) !!}
+                                {!! Form::submit(trans('messages.button-reject'), ['class' => 'btn btn-danger btn-medium']) !!}
                                 {!! Form::close() !!}
                             </td>
                         @endif
                     </tr>
                 @endforeach
                     <tr>
-                        <td class="vert-align text-right" colspan="3">TOTAL: </td>
+                        <td class="vert-align text-right" colspan="3">{{ trans('messages.total') }} </td>
                         <td class="vert-align" colspan="4"><strong>£ {{ $total }}</strong></td>
                     </tr>
                 </tbody>

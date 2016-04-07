@@ -34,6 +34,13 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('language', trans('messages.form-lang'), ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-4">
+                {!! Form::select('language', ['lt' => 'LT', 'en' => 'EN'], null, ['class' => 'form-control input-md', 'required' => 'required']) !!}
+            </div>
+        </div>
+
+        <div class="form-group">
             {!! Form::label('email', trans('messages.field-email'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::input('email', 'email', null, ['class' => 'form-control input-md', 'placeholder' => 'john.smith@gmail.com', 'required' => 'required']) !!}
@@ -41,7 +48,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('phone', trans('messages.field-pone'), ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('phone', trans('messages.field-phone'), ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
                 {!! Form::text('phone', null, ['class' => 'form-control input-md', 'placeholder' => '077985622132']) !!}
             </div>

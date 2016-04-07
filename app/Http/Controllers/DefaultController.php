@@ -93,7 +93,8 @@ class DefaultController extends Controller
                 'email' => rand(0, 9999999).$this->getRandom('emails'),
                 'password' => bcrypt('london97'),
                 'role' => $role,
-                'active' => 1
+                'active' => 1,
+                'language' => (rand(0,9) > 5 ? 'lt' : 'en')
             ));
             $user->save();
         }
@@ -126,7 +127,7 @@ class DefaultController extends Controller
             foreach($users as $user){
                 $day = new Day();
                 $submitted = rand(0,9) > 2 ? 1 : 0;
-                $approved = $submitted ? ($current_day >= '2016-03-21' && $current_day <= '2016-03-27' ? (rand(0,9) > 7 ? 1 : 0) : 1) : 0;
+                $approved = $submitted ? ($current_day >= date('Y-m-d', strtotime('Monday last week')) && date('Y-m-d', strtotime('Sunday last week')) ? (rand(0,9) > 7 ? 1 : 0) : 1) : 0;
                 $cancelled = !$approved && $submitted ? (rand(0,9) > 6 ? 1 : 0) : 0;
                 $day->fill(array(
                     'date' => $today,

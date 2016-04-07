@@ -3,6 +3,7 @@
     @include('pages.user.navbar')
     @include('flash::message')
     @foreach($weeks as $week)
+        @if($week->days()->where(['user_id' => $user->id])->count() > 0)
         <h2>{{ trans('messages.week') }}</h2>
         <p>({{ date('d/m/Y', strtotime($week->begin_date)).' - '.date('d/m/Y', strtotime($week->end_date)) }})</p>
         <table class="table table-hover">
@@ -25,7 +26,7 @@
                     'action' => ['DayController@update', $day->id]
                     ]) !!}
                         <td class="vert-align">{{ date('d/m/Y', strtotime($day->date)) }}</td>
-                        <td class="vert-align"><strong>{{ date('l', strtotime($day->date)) }}</strong></td>
+                        <td class="vert-align"><strong>{{ trans('messages.days.'.date('l', strtotime($day->date))) }}</strong></td>
                         <td class="vert-align">
                             {!! $day->status == 'none' ?
                                 '<span class="label label-warning">'.trans('messages.status-not-submitted').'</span>' :
@@ -82,6 +83,7 @@
             @endif
             </tbody>
         </table>
+        @endif
     @endforeach
 @endsection
 @push('scripts')

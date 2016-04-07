@@ -5,11 +5,11 @@ return [
     /* ***********************
     * Navigation
     *********************** */
-    'page' => 'Working.today',
-    'timesheet' => 'Timesheet',
+    'page' => 'WORKING',
+    'timesheet' => 'Timesheets',
     'users' => 'Users',
     'profile' => 'Profile',
-    'logout' => 'Logout',
+    'logout' => 'Log out',
 
     // Admin
     'payroll' => 'Payroll',
@@ -18,8 +18,8 @@ return [
 
     // Manager
     'urgent-requests' => 'Urgent requests',
-    'check-by-date' => 'Check by date',
-    'fixes' => 'Fixes',
+    'check-by-date' => 'Daily timesheets',
+    'fixes' => 'Amendments',
 
     // User
 
@@ -41,49 +41,49 @@ return [
     *********************** */
 
     // Payroll
-    'table-starts' => 'STARTS',
-    'table-ends' => 'ENDS',
+    'table-starts' => 'WEEK BEGINNING',
+    'table-ends' => 'WEEK ENDING',
     'table-salaries' => 'SALARIES',
-    'table-fixes' => 'FIXES',
+    'table-fixes' => 'AMENDMENTS',
     'table-total' => 'TOTAL',
-    'table-show' => 'SHOW',
+    'table-show' => 'TIMESHEET',
     'table-status' => 'STATUS',
 
     'status-current' => 'CURRENT',
     'status-approved' => 'APPROVED',
-    'pending-requests' => 'pending requests',
+    'pending-requests' => 'pending approvals',
 
-    'button-approve' => 'Approve',
+    'button-approve' => 'APPROVE AND SUBMIT',
 
     'week' => 'Week',
 
     'by-user' => 'By user',
     'by-day' => 'By day',
-    'only-fixes' => 'Only fixes',
+    'only-fixes' => 'Amendments',
 
     'date' => 'DATE',
-    'day' => 'DAY',
+    'day' => 'WEEKDAY',
     'status' => 'STATUS',
-    'earned' => 'EARNED',
-    'worked' => 'WORKED',
+    'earned' => 'PAY',
+    'worked' => 'SHIFT COVERED',
 
     'status-not-submitted' => 'NOT SUBMITTED',
-    'status-cancelled' => 'CANCELLED',
-    'status-waiting-approval' => 'WAITING TO BE APPROVED',
+    'status-cancelled' => 'REJECTED',
+    'status-waiting-approval' => 'AWAITING APPROVAL',
 
     'day-shift' => 'Day shift',
     'night-shift' => 'Night shift',
 
-    'table-fix' => 'FIX',
+    'table-fix' => 'AMENDMENT',
 
     'comment' => 'Comment:',
     'total' => 'TOTAL:',
 
     'table-user' => 'USER',
-    'table-worked' => 'WORKED',
-    'table-earned' => 'EARNED',
-    'table-sum' => 'SUM',
-    'table-comment' => 'COMMENT',
+    'table-worked' => 'SHIFT COVERED',
+    'table-earned' => 'PAY',
+    'table-sum' => 'AMOUNT',
+    'table-comment' => 'COMMENTS',
 
     // Managers
 
@@ -95,6 +95,7 @@ return [
     'button-edit' => 'Edit',
     'are-you-sure' => 'Are you sure?',
     'button-delete' => 'Delete',
+    'button-reject' => 'Reject',
     'edit-manager' => 'Edit manager',
 
     'field-name' => 'Name:',
@@ -102,7 +103,7 @@ return [
     'field-email' => 'E-mail:',
     'field-phone' => 'Phone:',
     'field-new-pass' => 'New password:',
-    'field-repeat-pass' => 'Repeat new password:',
+    'field-repeat-pass' => 'Repeat password:',
 
     'button-update-manager' => 'Update manager data',
 
@@ -139,9 +140,9 @@ return [
 
     // Urgent requests
 
-    'near-user-fixes' => 'fixes',
+    'near-user-fixes' => 'amendment(s)',
     'table-date' => 'DATE',
-    'table-day' => 'DAY',
+    'table-day' => 'WEEKDAY',
     'no-urgent-requests' => 'No urgent requests',
 
     // Timesheet
@@ -154,21 +155,22 @@ return [
 
     // Fixes
 
-    'select-week-for-fixes' => 'Select week for fixes',
-    'table-begins' => 'BEGINS',
-    'add-fix-for-week' => 'Add fix for this week',
-    'show-fixes' => 'Show fixes',
-    'fixes-list-for-week' => 'Fixes list for week',
-    'all-weeks' => 'All weeks',
-    'add-fix-week' => 'Add fix for week',
+    'select-week-for-fixes' => 'Amendments made for the periods',
+    'table-begins' => 'WEEK BEGINNING',
+    'add-fix-for-week' => 'Add new',
+    'show-fixes' => 'List all',
+    'fixes-list-for-week' => 'Amendments list for period',
+    'all-weeks' => 'All periods',
+    'add-fix-week' => 'Add amendment for period',
     'form-user' => 'User:',
-    'form-sum' => 'Sum (£):',
+    'form-sum' => 'Amount (£):',
     'form-comment' => 'Comment:',
-    'add-this-fix' => 'Add this fix',
-    'edit-fix' => 'Edit fix',
-    'save-this-fix' => 'Save this fix',
+    'add-this-fix' => 'Add amendment',
+    'edit-fix' => 'Edit amendment',
+    'save-this-fix' => 'Save changes',
     'fixes-list-for-user' => 'Fixes list for user',
     'show-all-fixes' => 'Show all fixes',
+    'period' => 'Period',
 
     // Users
 
@@ -191,14 +193,14 @@ return [
 
     // DayController
 
-    'time-submitted' => 'Your time has been submitted!',
+    'time-submitted' => 'Your shift details have been submitted!',
     'record-approved' => 'Record has been approved!',
-    'record-cancelled' => 'Record cancelled!',
+    'record-cancelled' => 'Record rejected!',
 
     // FixesController
 
-    'fix-added' => 'Fix has been successfully added!',
-    'fix-updated' => 'Fix is successfully updated!',
+    'fix-added' => 'Amendment has been successfully added!',
+    'fix-updated' => 'Amendment has been successfully updated!',
 
     // ManagerController
 
@@ -222,7 +224,7 @@ return [
 
     // WeekController
 
-    'payroll-paid' => 'Payroll period successfully marked as paid',
+    'payroll-paid' => 'Payroll period successfully approved',
 
     // Days
 
@@ -233,4 +235,15 @@ return [
     'days.Wednesday' => 'Wednesday',
     'days.Tuesday' => 'Tuesday',
     'days.Monday' => 'Monday',
+
+    'search-user' => 'Search user',
+
+    // Password reset
+
+    'reset-password' => 'Reset Password',
+    'form-confirm-pass' => 'Confirm Password',
+    'button-send-pass-reset' => 'Reset password',
+
+    'table-language' => 'LANGUAGE',
+    'form-lang' => 'Language'
 ];

@@ -30,13 +30,27 @@ class TimesheetController extends Controller
     }
 
     public function managersUsers(){
-        $users = User::with('days')->where(['role' => 'user'])->orderBy('surname')->get();
+        $search_user = Input::has('search_user') ? Input::get('search_user') : '';
+        $users = User::with('days')->where(['role' => 'user'])
+            ->where(function($users) use ($search_user){
+                if($search_user) {
+                    $words = explode(' ', $search_user);
+                    foreach($words as $word) {
+                        $users->where(function($users) use ($word){
+                            $users->orWhere('name', 'LIKE', '%' . $word . '%')
+                                ->orWhere('surname', 'LIKE', '%' . $word . '%');
+                        });
+                    }
+                }
+            })
+            ->orderBy('surname')->get();
         $day_fare = Settings::select('value')->where(['name' => 'day_fare'])->first();
         $night_fare = Settings::select('value')->where(['name' => 'night_fare'])->first();
         return view('pages.manager.timesheet.lists_users')->with([
             'users' => $users,
             'day_fare' => $day_fare->value,
-            'night_fare' => $night_fare->value
+            'night_fare' => $night_fare->value,
+            'search_user' => $search_user
         ]);
     }
 
@@ -70,7 +84,20 @@ class TimesheetController extends Controller
     }
 
     public function view($id){
-        $users = User::with('days')->where(['role' => 'user'])->orderBy('surname')->get();
+        $search_user = Input::has('search_user') ? Input::get('search_user') : '';
+        $users = User::with('days')->where(['role' => 'user'])
+            ->where(function($users) use ($search_user){
+                if($search_user) {
+                    $words = explode(' ', $search_user);
+                    foreach($words as $word) {
+                        $users->where(function($users) use ($word){
+                            $users->orWhere('name', 'LIKE', '%' . $word . '%')
+                                ->orWhere('surname', 'LIKE', '%' . $word . '%');
+                        });
+                    }
+                }
+            })
+            ->orderBy('surname')->get();
         $week = Week::findOrFail($id);
         $day_fare = Settings::select('value')->where(['name' => 'day_fare'])->first();
         $night_fare = Settings::select('value')->where(['name' => 'night_fare'])->first();
@@ -80,7 +107,8 @@ class TimesheetController extends Controller
             'day_fare' => $day_fare->value,
             'night_fare' => $night_fare->value,
             'where' => $where,
-            'week' => $week
+            'week' => $week,
+            'search_user' => $search_user
         ]);
     }
 
@@ -132,15 +160,29 @@ class TimesheetController extends Controller
     }
 
     public function requestsUsers(){
+        $search_user = Input::has('search_user') ? Input::get('search_user') : '';
         $pending = Day::where(['day.approved' => 0, 'day.cancelled' => 0, 'day.submitted' => 1])->where('day.status', '<>', 'none')->leftJoin('week', 'week.id', '=', 'day.week_id')->where(['week.approved' => 0, 'week.current' => 0])->count();
-        $users = User::where(['role' => 'user'])->orderBy('surname', 'ASC')->get();
+        $users = User::where(['role' => 'user'])
+            ->where(function($users) use ($search_user){
+                if($search_user) {
+                    $words = explode(' ', $search_user);
+                    foreach($words as $word) {
+                        $users->where(function($users) use ($word){
+                            $users->orWhere('name', 'LIKE', '%' . $word . '%')
+                                ->orWhere('surname', 'LIKE', '%' . $word . '%');
+                        });
+                    }
+                }
+            })
+            ->orderBy('surname', 'ASC')->get();
         $day_fare = Settings::select('value')->where(['name' => 'day_fare'])->first();
         $night_fare = Settings::select('value')->where(['name' => 'night_fare'])->first();
         return view('pages.manager.timesheet.users')->with([
             'day_fare' => $day_fare->value,
             'night_fare' => $night_fare->value,
             'users' => $users,
-            'pending' => $pending
+            'pending' => $pending,
+            'search_user' => $search_user
         ]);
     }
 

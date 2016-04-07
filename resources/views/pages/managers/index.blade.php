@@ -7,8 +7,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th>#</th>
+            <th>#ID</th>
             <th>{{ trans('messages.table-name') }}</th>
+            <th>{{ trans('messages.table-language') }}</th>
             <th>{{ trans('messages.table-email') }}</th>
             <th>{{ trans('messages.table-phone') }}</th>
             <th>{{ trans('messages.table-actions') }}</th>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ $manager->id }}</td>
                 <td>{{ $manager->name.' '.$manager->surname }}</td>
+                <td>{{ strtoupper($manager->language) }}</td>
                 <td>{{ $manager->email }}</td>
                 <td>{{ $manager->phone }}</td>
                 <td>

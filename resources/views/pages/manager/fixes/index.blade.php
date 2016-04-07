@@ -16,7 +16,7 @@
         <tbody>
         @foreach($weeks as $week)
             <tr>
-                <td class="vert-align">{{ trans('messages.week') }}</td>
+                <td class="vert-align">{{ trans('messages.period') }}</td>
                 <td class="vert-align">{{ $week->begin_date }}</td>
                 <td class="vert-align">{{ $week->end_date }}</td>
                 <td class="vert-align">{{ $week->fixes()->count() }}</td>

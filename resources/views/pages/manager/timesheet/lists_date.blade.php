@@ -22,7 +22,7 @@
             </tr>
             </thead>
         @foreach($single['days'] as $day)
-            <?php $total += $day->cancelled == 0 ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
+            <?php $total += $day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
             <tbody>
             {!! Form::open([
                             'method' => '',
@@ -53,7 +53,7 @@
                     @endif
                 </td>
                 <td class="vert-align">
-                    <strong>£ {{ $day->cancelled == 0 ? ($day->status == 'day' ? $day_fare : $night_fare) : 0 }}</strong>
+                    <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                 </td>
                 {!! Form::hidden('id', $day->id) !!}
                 @if($day->approved || $day->cancelled)
@@ -71,7 +71,7 @@
                         'action' => ['DayController@destroy', $day->id],
                         'onclick'=>'return confirm("'.trans('messages.are-you-sure').'")'
                         ]) !!}
-                        {!! Form::submit(trans('messages.button-delete'), ['class' => 'btn btn-danger btn-medium']) !!}
+                        {!! Form::submit(trans('messages.button-reject'), ['class' => 'btn btn-danger btn-medium']) !!}
                         {!! Form::close() !!}
                     </td>
                 @endif

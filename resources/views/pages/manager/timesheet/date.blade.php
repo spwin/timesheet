@@ -2,6 +2,7 @@
 @section('body')
     @include('pages.manager.navbar')
     @include('flash::message')
+    <?php $user_count = 0; ?>
     <?php $total = 0; ?>
     {!! Form::open([
                     'action' => array('TimesheetController@byDate'),
@@ -15,6 +16,7 @@
     <table class="table table-hover">
         <thead>
         <tr>
+            <th>#</th>
             <th>{{ trans('messages.table-user') }}</th>
             <th>{{ trans('messages.table-status') }}</th>
             <th>{{ trans('messages.table-worked') }}</th>
@@ -23,13 +25,14 @@
         </tr>
         </thead>
     @foreach($days as $day)
-        <?php $total += ($day->status == 'day' ? $day_fare : $night_fare) ?>
+        <?php $total += $day->approved ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
         <tbody>
         {!! Form::open([
                         'method' => '',
                         'action' => ['DayController@approve', $day->id]
                         ]) !!}
         <tr>
+            <td>{{ ++$user_count }}</td>
             <td class="vert-align"><a href="{{ action('TimesheetController@listsUser', ['id' => $day->user()->first()->id]) }}">{{ $day->user()->first()->name }} {{ $day->user()->first()->surname }}</a></td>
             <td class="vert-align">
                 {!! $day->status == 'none' ?
@@ -53,7 +56,7 @@
                 @endif
             </td>
             <td class="vert-align">
-                <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                <strong>{{ $day->approved ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
             </td>
             {!! Form::hidden('id', $day->id) !!}
             @if($day->approved || $day->cancelled)
@@ -70,7 +73,7 @@
                     'action' => ['DayController@destroy', $day->id],
                     'onclick'=>'return confirm("'.trans('messages.are-you-sure').'")'
                     ]) !!}
-                    {!! Form::submit(trans('messages.button-delete'), ['class' => 'btn btn-danger btn-medium']) !!}
+                    {!! Form::submit(trans('messages.button-reject'), ['class' => 'btn btn-danger btn-medium']) !!}
                     {!! Form::close() !!}
                 </td>
             @endif
@@ -85,6 +88,15 @@
 @endsection
 @push('scripts')
 <script>
+    $("input:checkbox").click(function() {
+        if ($(this).is(":checked")) {
+            var group = "input:checkbox." + $(this).attr("class");
+            $(group).prop("checked", false);
+            $(this).prop("checked", true);
+        } else {
+            $(this).prop("checked", false);
+        }
+    });
     $(function() {
         $( "#date" ).datepicker({
             dateFormat: 'yy-mm-dd',

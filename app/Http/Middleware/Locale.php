@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class Locale {
 
@@ -20,11 +21,6 @@ class Locale {
     {
         $language = Session::has('language') ? Session::get('language') : Config::get('app.locale');
         App::setLocale($language);
-        $languages = [
-            'lt' => 'lt_LT',
-            'en' => 'en_EN'
-        ];
-        setlocale(LC_TIME, $languages[$language]);
         return $next($request);
     }
 

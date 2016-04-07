@@ -3,10 +3,22 @@
     @include('pages.manager.navbar')
     @include('flash::message')
     @if($pending > 0)
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs " role="tablist">
             <li role="presentation" class="active"><a href="{{ action('TimesheetController@requestsUsers') }}">{{ trans('messages.by-user') }}</a></li>
             <li role="presentation"><a href="{{ action('TimesheetController@requestsDays') }}">{{ trans('messages.by-day') }}</a></li>
         </ul>
+        <div class="width-300px">
+            {!! Form::open([
+                'action' => ['TimesheetController@requestsUsers'],
+                'method' => 'GET',
+                'role' => 'search'
+                ]) !!}
+            <div class="form-group input-group">
+                {!!Form::input('search', 'search_user', $search_user ? $search_user : '', ['id' =>  'search_user', 'placeholder' =>  trans('messages.search-user'), 'class' => 'form-control']) !!}
+                <span class="input-group-btn"><button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
+            </div>
+            {!! Form::close() !!}
+        </div>
         @foreach($users as $user)
             @if($user->days()->select(['day.status as status', 'day.id as id', 'day.date as date', 'day.approved as approved', 'day.cancelled as cancelled'])->where(['day.submitted' => 1, 'day.cancelled' => 0, 'day.approved' => 0])->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->where(['week.approved' => 0, 'week.current' => 0])->count() > 0)
                 <h2>
@@ -29,7 +41,7 @@
                     <tbody>
                     <?php $total = 0; ?>
                     @foreach($user->days()->select(['day.status as status', 'day.id as id', 'day.date as date', 'day.approved as approved', 'day.cancelled as cancelled'])->where(['submitted' => 1, 'cancelled' => 0, 'day.approved' => 0])->leftJoin('week', 'week.id', '=', 'day.week_id')->where('status', '<>', 'none')->where(['week.approved' => 0, 'week.current' => 0])->orderBy('date', 'DESC')->get() as $day)
-                        <?php $total += ($day->status == 'day' ? $day_fare : $night_fare) ?>
+                        <?php $total += $day->cancelled == 0 ? ($day->status == 'day' ? $day_fare : $night_fare) : 0; ?>
                         <tr>
                             {!! Form::open([
                             'method' => '',
@@ -45,7 +57,7 @@
                                     '<span class="label label-info">'.trans('messages.status-waiting-approval').'</span>')) !!}
                             </td>
                             <td class="vert-align">
-                                <strong>£ {{ $day->status == 'day' ? $day_fare : $night_fare }}</strong>
+                                <strong>{{ $day->cancelled == 0 ? ($day->status == 'day' ? '£ '.$day_fare : '£ '.$night_fare) : '--' }}</strong>
                             </td>
                             <td class="vert-align">
                                 @if($day->approved || $day->cancelled)
@@ -77,7 +89,7 @@
                                     'action' => ['DayController@destroy', $day->id],
                                     'onclick'=>'return confirm("'.trans('messages.are-you-sure').'")'
                                     ]) !!}
-                                    {!! Form::submit(trans('messages.button-delete'), ['class' => 'btn btn-danger btn-medium']) !!}
+                                    {!! Form::submit(trans('messages.button-reject'), ['class' => 'btn btn-danger btn-medium']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             @endif
